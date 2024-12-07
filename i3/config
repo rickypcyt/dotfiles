@@ -13,8 +13,8 @@ set $ws9 "9"
 set $ws10 "10"
 
 # Font settings
-font Hack
-#font pango:DejaVu Sans Mono 8
+font monospace
+#font pango:DejaVu Sans Mono 812
 
 # Startup applications
 exec --no-startup-id polybar
@@ -23,14 +23,22 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 exec --no-startup-id picom --config $HOME/.config/picom/picom.conf
-exec --no-startup-id xrandr --output Virtual1 --mode 1920x1080 --rate 60
-exec --no-startup-id feh --bg-fill /home/ricky/Pictures/fondo.png
+# exec --no-startup-id xrandr --output Virtual1 --mode 1920x1080 --rate 60
+# exec --no-startup-id feh --bg-fill /home/ricky/Pictures/fondo.png
 
 # Audio key bindings
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+
+# Bajar el brillo con F7
+bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
+
+# Subir el brillo con F8
+bindsym XF86MonBrightnessUp exec brightnessctl set +10%
+
 
 # Window manipulation
 floating_modifier $mod
@@ -40,7 +48,7 @@ tiling_drag modifier titlebar
 bindsym $mod+Return exec i3-sensible-terminal
 bindsym Mod4+Return exec kitty
 bindsym Mod4+space exec rofi -show drun
-bindsym Mod4+f exec firefox
+bindsym Mod4+f exec zen-browser
 bindsym Mod4+c exec code
 bindsym Mod4+w kill
 
@@ -52,7 +60,7 @@ bindsym Mod1+Tab exec --no-startup-id rofi -show
 
 # Gaps
 gaps inner 10
-gaps outer 5
+gaps outer 0
 
 # Resize mode
 mode "resize" {
@@ -135,7 +143,6 @@ client.focused_inactive $color4 $color1 $color4 $color4 $color4
 client.urgent $color3 $color3 $color2 $color2 $color4
 
 # Application rules
-assign [class="kitty"] $ws2
 assign [class="firefox"] $ws1
 
 # Floating window adjustments for pavucontrol with uppercase title for visibility
